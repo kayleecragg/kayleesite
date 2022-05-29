@@ -1,0 +1,992 @@
+<!DOCTYPE>
+<html>
+
+<head>
+
+    <!--------------------Firebase SDKs-------------------->
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+    
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+             https://firebase.google.com/docs/web/setup#available-libraries -->
+    
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAoXRQslBacZnoKz0PvXGHM4HepYQOcm9M",
+            authDomain: "kaylee-cragg.firebaseapp.com",
+            projectId: "kaylee-firebase deploy --only hosting:kayleecragg",
+            storageBucket: "kaylee-cragg.appspot.com",
+            messagingSenderId: "568975514895",
+            appId: "1:568975514895:web:c4715596b6cfac79fcf27a"
+
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    
+    <title>Kaylee's Website</title>
+
+    <link rel="shortcut icon" href="{Favicon}">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <script src="//static.tumblr.com/snld4jp/adOr5n1p5/malihu-tooltips.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:500|Public+Sans:500|Karla:500|Manrope:500|Quantico"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/phosphor-icons"></script>
+
+    <script src="//static.tumblr.com/snld4jp/CmMr5pgy9/paradox-of-frankly-irritating-proportions.js"></script>
+
+    <!------------------------------------------------->
+
+    <style type="text/css">
+        /*----- FONTS -----*/
+        @font-face {
+            font-family: "brutal medium";
+            src: url("//glen-assets.github.io/fonts/Brutal-Medium.ttf");
+        }
+
+        @font-face {
+            font-family: "altone";
+            src: url("//glen-assets.github.io/fonts/Altone-Regular.ttf");
+        }
+
+        @font-face {
+            font-family: "big bang";
+            src: url("//glen-assets.github.io/fonts/BigBang.otf");
+        }
+
+        /*----- TOOLTIPS -----*/
+        #s-m-t-tooltip {
+            padding: 5px 8px;
+            margin: 20px;
+            background-color: var(--Tooltips-BG);
+            border-radius: 2px;
+            font-family: public sans;
+            font-size: 8px;
+            letter-spacing: .7px;
+            text-transform: uppercase;
+            color: var(--Tooltips-Text);
+            line-height: 160%;
+            z-index: 99;
+            max-width: 40vw;
+        }
+
+
+        /* ignore this */
+        [left-bar],
+        [menu-intro],
+        [menu-tabs],
+        [descbox],
+        [main-content] {
+            visibility: visible;
+        }
+
+        [main-content]:first-child {
+            display: none;
+            opacity: 0;
+        }
+
+        /*----- SCROLLBAR -----*/
+        ::-webkit-scrollbar {
+            width: var(--Scrollbar-Width);
+            height: var(--Scrollbar-Width);
+            background-color: var(--Main-Box-BG);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border: calc((var(--Scrollbar-Width) - 1px) / 2) solid var(--Main-Box-BG);
+            background-color: var(--Main-Scrollbar-Thumb);
+        }
+
+        ::-webkit-scrollbar-track {
+            border: calc((var(--Scrollbar-Width) - 1px) / 2) solid var(--Main-Box-BG);
+            background-color: var(--Main-Scrollbar-Track);
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: var(--Main-Box-BG);
+        }
+
+        /*----- BASICS -----*/
+        body {
+            background-color: #fcfcfc;
+            background-image: url("https://64.media.tumblr.com/ea630cf703fdc9c2527fd28bbac5f3e1/88ed1c17c6fef0c5-34/s2048x3072/8406b1b6bc1492b0b271e0a0bf5454291fe86fba.png");
+            background-attachment: fixed;
+            background-repeat: repeat;
+            font-family: manrope;
+            letter-spacing: .3px;
+            font-size: var(--Main-Font-Size);
+            color: var(--Main-Text-Color);
+            line-height: var(--General-Line-Height);
+            text-align: left;
+        }
+
+        a {
+            color: var(--Links-Color);
+        }
+
+        a:not([game-item]):not([tab-item]) {
+            -webkit-transition: all 0.4s ease-in-out;
+            -moz-transition: all 0.4s ease-in-out;
+            -o-transition: all 0.4s ease-in-out;
+        }
+
+        [descbox] a,
+        [short-stats] a,
+        [about-text] a,
+        [an-answer] a,
+        [paragraph-text] a {
+            padding-bottom: .5px;
+            border-bottom: 1px solid var(--Links-Underline);
+        }
+
+        b,
+        strong {
+            font-weight: normal;
+            color: var(--Bold);
+            -webkit-text-stroke: 0.15px var(--Bold);
+            -webkit-text-fill-color: var(--Bold);
+        }
+
+        i:not([class]),
+        em:not([class]) {
+            color: var(--Italics);
+        }
+
+        /*----- OPTIONS LIST / SETTINGS LIST -----*/
+
+        :root {
+
+            /*--- GENERAL SETTINGS ---*/
+            --Main-Font-Size: 12px;
+            --Main-Text-Color: #999;
+            --General-Line-Height: 1.6;
+            /* number only */
+
+            --Bold: #81a5b6;
+            --Italics: #90bed0;
+
+            --Links-Color: #A1C9C2;
+            --Links-Underline: #eae9e9;
+
+            --Highlighted-Text-BG: #bbd3fd;
+            --Highlighted-Text-Color: inherit;
+
+            --Scrollbar-Width: 13px;
+
+            --Tooltips-BG: #161616;
+            --Tooltips-Text: #d5d5d5;
+
+            --TumblrControls-Color: black;
+
+            /*--- MAIN CONTAINER SETTINGS ---*/
+            --Main-Box-Width: 720px;
+            --Main-Box-Height: 490px;
+            --Main-Box-Padding: 20px;
+            --Main-Box-BG: #fff;
+            --Main-Box-Border: #efefef;
+            --Main-Box-Roundness: 5px;
+
+            --Main-Box-Shadow-Size: 40px;
+            --Main-Box-Shadow-Color: rgba(0, 0, 0, 4%);
+
+            --Main-Content-Outside-Padding: 20px;
+            --Main-Content-Fade-Speed: 269ms;
+            /* must be in ms */
+
+            /*--- LEFT BAR SETTINGS ---*/
+            --Left-Bar-Padding: 10px;
+            --Left-Bar-BG: #090909;
+
+            --Left-Bar-Title-Size: 12px;
+            --Left-Bar-Title-Color: #d9d9d9;
+
+            --Navlinks-Icon-Size: 14px;
+            --Navlinks-Icon-Color: #e0e0e0;
+            --Navlinks-BG: #181818;
+            --Navlinks-Padding: 5px;
+            --Navlinks-Roundness: 3px;
+
+            --Navlinks-Spacing: 6px;
+
+            /*--- MAIN MENU COLUMN ---*/
+            --Main-Menu-Width: 180px;
+            --Main-Menu-Outside-Padding: 15px;
+
+            --Menu-Intro-Avatar-Size: 34px;
+            --Menu-Intro-Avatar-Border-Outer-Size: 1px;
+            --Menu-Intro-Avatar-Border-Outer-Color: #eee;
+            --Menu-Intro-Avatar-Border-Inner-Size: 4px;
+            --Menu-Intro-Avatar-Border-Inner-Color: #fafafa;
+
+            --Menu-Intro-Center-Gap: 6px;
+
+            --Menu-Intro-Title-Size: 9px;
+            --Menu-Intro-Title-Color: #222;
+
+            --Menu-Intro-Text-Gap: 0px;
+
+            --Menu-Intro-Subtitle-Size: 9px;
+            --Menu-Intro-Subtitle-Color: #999;
+
+            /*--- MENU TABS ---*/
+            --Tab-Menu-Top-Gap: 12px;
+
+            --Tab-Menu-Icon-Size: 13px;
+            --Tab-Menu-Icon-Color: #222;
+            --Tab-Menu-Icon-Gap: 7px;
+            --Tab-Menu-Font-Size: 9px;
+            --Tab-Menu-Text-Color: #222;
+
+            --Tab-Menu-SELECTED-BG: #222;
+            --Tab-Menu-SELECTED-Icon-Color: #eee;
+            --Tab-Menu-SELECTED-Text-Color: #eee;
+
+            --Tab-Menu-Padding-X: 8px;
+            --Tab-Menu-Padding-Y: 9px;
+            --Tab-Menu-Roundness: 3px;
+
+            --Main-Menu-Right-Border-Color: #f2f2f2;
+
+            /*--- SIDEBAR DESCRIPTION ---*/
+            --Desc-Top-Gap: 10px;
+
+            --Desc-Padding-X: 10px;
+            --Desc-Padding-Y: 7px;
+            --Desc-Roundness: 3px;
+            --Desc-Border-Color: #efefef;
+            --Desc-BG: #fafafa;
+
+            --Desc-Font-Size: 10.5px;
+            --Desc-Text-Color: #444;
+            --Desc-Text-Align: justify;
+            --Desc-Line-Height: 1.65;
+
+            --Main-Scrollbar-Thumb: #d5d5d5;
+            --Main-Scrollbar-Track: #f2f2f2;
+
+            /*--- GLOBAL TEXT SETTINGS ---*/
+            --Heading-Size: 14px;
+            --Heading-Color: #222;
+            --Heading-Bottom-Gap: 15px;
+
+            --Subheading-Size: 12px;
+            --Subheading-Color: #222;
+            --Subheading-Gaps: 10px;
+
+            --Paragraph-Text-Size: 11px;
+            --Paragraph-Text-Color: #444;
+            --Paragraph-Text-Line-Height: 1.8;
+            /* number only */
+            --Paragraph-Text-Align: justify;
+            --Paragraph-Bottom-Gap: 18px;
+
+            /*--- ABOUT ME PANEL ---*/
+            --Short-Stats-Icon-Size: 16px;
+            --Short-Stats-Icon-Color: #222;
+            --Short-Stats-Icon-Gap: 6px;
+
+            --Short-Stats-Label-Size: 9px;
+            --Short-Stats-Label-Color: #222;
+
+            --Short-Stats-Text-Gap: 4px;
+
+            --Short-Stats-Detail-Size: 11px;
+            --Short-Stats-Detail-Color: #999;
+
+            --Short-Stats-Row-Spacing: 6px;
+            --Short-Stats-Row-Count: 3;
+            --Short-Stats-Column-Spacing: 24px;
+
+            --About-Text-Gap-Top: 15px;
+            --About-Text-Gap-Bot: 5px;
+            --About-Text-Line-Height: 1.8;
+            /* number only */
+            --About-Text-Align: justify;
+
+            --Meter-Bar-Label-Size: 8px;
+            --Meter-Bar-Label-Color: #222;
+            --Meter-Bar-Label-Gap: 10px;
+
+            --Meter-Bar-Thickness: 2px;
+            --Meter-Bar-Empty: #eaeaea;
+            --Meter-Bar-Fill: #222;
+
+            --Meter-Bars-Per-Column: 3;
+            --Meter-Bar-Row-Spacing: 6px;
+
+            --Meter-Bar-Column-Spacing: 20px;
+
+            /*--- FAQ PANEL ---*/
+            --Question-Marker-Icon: "chat-centered-dots-bold";
+            --Question-Marker-Size: 13px;
+            --Question-Marker-Color: #222;
+            --Question-Marker-Gap: 7px;
+
+            --Question-Text-Size: 10px;
+            --Question-Text-Color: #222;
+
+            --Answer-Text-Gap-Top: 8px;
+            --Answer-Text-Border-Thickness: 2px;
+            --Answer-Text-Border-Color: #f0f0f0;
+            --Answer-Text-Size: 11px;
+            --Answer-Text-Color: #888;
+
+            --Question-Each-Spacing: 20px;
+
+            /*--- MUSIC PANEL ---*/
+
+            --Song-Image-Size: 35px;
+            --Song-Image-Roundness: 3px;
+            --Song-Overlay-Color: #222;
+            --Song-Overlay-Transparency: 40%;
+            /* percentage only */
+            --Song-Overlay-Fade-Speed: 169ms;
+            --Song-Image-Gap: 11px;
+
+            --Song-Name-Size: 9px;
+            --Song-Name-Color: #222;
+
+            --Artist-Name-Size: 10px;
+            --Artist-Name-Color: #999;
+
+            --Song-Buttons-Size: 12px;
+            --Song-Buttons-Color: #d8d8d8;
+
+            --CurrentlyPlaying-Icon-Size: 20px;
+            --CurrentlyPlaying-Icon-Color: #222;
+            --CurrentlyPlaying-Icon-Fade-Speed: 250ms;
+            /* must be in ms */
+
+            --Song-Row-Spacing: 9px;
+
+            --Autoplay-First-Song: no;
+            --Autoplay-Next-Song: yes;
+            --Loop-Playlist-Forever: yes;
+
+            /*---- GAMES PANEL ----*/
+            --Game-Filters-Padding-X: 10px;
+            --Game-Filters-Padding-Y: 6px;
+            --Game-Filters-Border: #e9e9e9;
+            --Game-Filters-BG: #fcfcfc;
+            --Game-Filters-Roundness: 20px;
+            --Game-Filters-Text-Size: 8px;
+            --Game-Filters-Text-Color: #999;
+
+            --Game-Filters-SELECTED-Border: #222;
+            --Game-Filters-SELECTED-BG: #222;
+            --Game-Filters-SELECTED-Text: #eee;
+
+            --Game-Filters-Fade-Speed: 169ms;
+            --Game-Filters-Spacing: 6px;
+            --Game-Filters-Gap-Bot: 12px;
+
+            --Games-Per-Row: 4;
+
+            --Game-Image-Height: 155px;
+            --Game-Image-Roundness: 4px;
+            --Game-Image-Hover-Zoom: 15%;
+            /* percentage only */
+
+            --Game-Name-Gap-Top: 7px;
+            --Game-Name-Size: 8px;
+            --Game-Name-Color: #444;
+            --Game-Name-Padding: 6px;
+            --Game-Name-BG: #fafafa;
+            --Game-Name-Border: #e9e9e9;
+            --Game-Name-Roundness: 5px;
+
+            --Game-Rating-Star-Size: 12px;
+            --Game-Rating-Star-Color: #e5d5c1;
+            --Game-Rating-Star-Spacing: 1.5px;
+            --Game-Rating-Star-Bottom-Gap: 8px;
+
+            --Game-Overlay-Color: #090909;
+            --Game-Overlay-Transparency: 15%;
+            /* percentage only */
+
+            --Game-Fade-Speed: 269ms;
+            /* must be in ms */
+
+            --Games-Spacing: 10px;
+
+            /*--- BUCKETLIST PANEL ---*/
+            --Bucketlist-Icon-Size: 14px;
+            --Bucketlist-Icon-Color: #222;
+            --Bucketlist-Icon-Gap: 6px;
+
+            --Bucketlist-Text-Size: 11px;
+            --Bucketlist-Text-Color: #333;
+
+            --Bucketlist-Row-Spacing: 5px;
+
+            --Bucketlist-Category-Spacing: 20px;
+
+            /*--- TAGS PANEL ---*/
+            --Tags-Columns: 2;
+            --Tags-Category-Spacing: 15px;
+            --Tags-Column-Spacing: 20px;
+
+            --Tags-Category-Name-Padding: 12px;
+            --Tags-Category-Name-BG: #fafafa;
+            --Tags-Category-Name-Border: #f0f0f0;
+            --Tags-Category-Name-Roundness: 3px;
+            --Tags-Category-Name-Size: 10px;
+            --Tags-Category-Name-Color: #222;
+            --Tags-Category-Name-Gap-Bot: 10px;
+
+            --Tags-Icon: "plus-bold";
+            --Tags-Icon-Size: 10px;
+            --Tags-Icon-Color: #222;
+            --Tags-Icon-Spin: yes;
+            --Tags-Icon-Spin-In-Speed: 269ms;
+            --Tags-Icon-Spin-Out-Speed: 0ms;
+            --Tags-Icon-Gap: 6px;
+
+            --Tags-Text-Size: 9px;
+            --Tags-Text-Color: #222;
+
+            --Tags-Row-Spacing: 5px;
+
+            /*--- BLOGS PANEL ---*/
+            --Blogs-Per-Row: 2;
+
+            --Blogs-Icon-Size: 30px;
+            --Blogs-Icon-Roundness: 3px;
+            --Blogs-Icon-Gap: 8px;
+
+            --Blogs-Name-Size: 8px;
+            --Blogs-Name-Color: #222;
+
+            --Blogs-Text-Gap: 2px;
+
+            --Blogs-Subtitle-Size: 9px;
+            --Blogs-Subtitle-Color: #999;
+
+            --Blogs-Frame-Padding: 12px;
+            --Blogs-Frame-BG: #fafafa;
+            --Blogs-Frame-Roundness: 5px;
+            --Blogs-Frame-Border: #f2f2f2;
+
+            --Blogs-Spacing: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div left-bar>
+
+        <!----- LEFT BAR, VERTICAL TITLE ----->
+        <div left-bar-title>
+            &middot; + swe + &middot;
+        </div>
+
+    </div>
+    <!--end left bar-->
+
+
+
+
+    <!----- MAIN MENU SIDEBAR, TOP PART ----->
+    <div menu-intro>
+        <img src="https://cdn.discordapp.com/attachments/900692000364445736/928117181865148487/57134_original.png"
+            align-me="center">
+        <div int-text>
+            <div top>kaylee#1111</div>
+            <div bot>&thinsp;<i>better days</i> to come</div>
+        </div>
+    </div>
+    <!--end intro-->
+
+
+
+    <!----- MAIN MENU SIDEBAR, MENU TABS ----->
+    <div menu-tabs>
+        <div tab-item tab-id="about">
+            <i class="ph-hand-waving"></i>
+            <span text>about me</span>
+        </div>
+
+        <div tab-item tab-id="faq">
+            <i class="ph-fingerprint"></i>
+            <span text>experience</span>
+        </div>
+
+        <div tab-item tab-id="projects">
+            <i class="ph-cpu"></i>
+            <span text>projects</span>
+        </div>
+
+        <div tab-item tab-id="blogs">
+            <i class="ph-users-three"></i>
+            <span text>contact and links</span>
+        </div>
+
+        <div tab-item tab-id="music">
+            <i class="ph-music-notes"></i>
+            <span text>favorite music</span>
+        </div>
+
+    </div>
+    <!--end menu tabs-->
+
+
+
+    <!----- MAIN MENU SIDEBAR, DESCRIPTION ----->
+    <div descbox include-scrollbar="no">
+
+        &#x2661; &boxh; you deserve someone who sees <b>galaxies</b> in your eyes and hears <b>angels</b> in your laugh.
+        someone who sees <b>forever</b> in your smile and feels bliss within your touch. someone who will love you like
+        it is the greatest privilege, <i>because it is.</i> &mdash; <a
+            href="https://wnq-writers.tumblr.com/post/150802900471">@magicayl</a>
+
+    </div>
+    <!--end description-->
+
+
+
+    <!--==============================================-->
+    <!--==============================================-->
+    <!--==============================================-->
+
+    <!----- PANEL #1 - ABOUT ME ----->
+    <div main-content tab-id="about">
+        <div heading>About me.</div>
+
+        <div short-stats>
+            <li>
+                <i class="ph-smiley-sticker"></i>
+                <span label>name:</span>
+                <span detail>kaylee cragg</span>
+
+            <li>
+                <i class="ph-balloon"></i>
+                <span label>birthday:</span>
+                <span detail>23 nov 01'</span>
+
+            <li>
+                <i class="ph-sparkle"></i>
+                <span label>MBTI:</span>
+                <span detail>INFP</span>
+
+            <li>
+                <i class="ph-bookmarks-simple"></i>
+                <span label>pronouns:</span>
+                <span detail>she/her</span>
+
+            <li>
+                <i class="ph-globe-hemisphere-east"></i>
+                <span label>country:</span>
+                <span detail>
+                    <a title="i am a citizen of both australia and singapore">melbourne, australia / singapore</a>
+                </span>
+
+            <li>
+                <i class="ph-student"></i>
+                <span label>major:</span>
+                <span detail>
+                    <a title="i aspire to use ML/AI to investigate the causes of diseases of the brain">artificial
+                        intelligence</a>
+                </span>
+
+        </div>
+        <!--end short stats-->
+
+
+
+        <div about-text include-scrollbar="yes">
+            <br>Hey! Welcome to my website :) I'm Kaylee, 20, currently undertaking a Bachelor of Science, Computer
+            Science (Honours) at
+            UNSW, in Australia.</br>
+
+            <br>I have a deep passion for automation, data analytics, and machine learning, and would love to learn more
+            about these
+            subjects and meet people with similar interests!</br>
+
+            <br>I am currently looking to take on an internship within the next year or so, and will be growing my
+            portfolio. Thanks for
+            stopping by!</br>
+            ( ˘ ᵕ˘(˘ᵕ ˘ )♡
+
+        </div>
+        <!--end about paragraph text-->
+
+
+
+        <div subheading>MY STATS.</div>
+
+        <div bar-stats>
+            <div bar-name="strength" fill="30%"></div>
+            <div bar-name="intelligence" fill="65%"></div>
+            <div bar-name="wisdom" fill="75%"></div>
+
+            <div bar-name="dexterity" fill="40%"></div>
+            <div bar-name="constitution" fill="90%"></div>
+            <div bar-name="charisma" fill="60%"></div>
+        </div>
+        <!--end bar stats-->
+
+    </div>
+    <!--end entire about panel-->
+
+
+    <!--==============================================-->
+    <!--==============================================-->
+    <!--==============================================-->
+
+
+    <!----- PANEL #2 - FAQ ----->
+    <div main-content tab-id="faq">
+
+        <div heading>previous experience</div>
+
+        <div a-question>associate producer @ 9now</div>
+        <div an-answer>
+            <p>• Uploading and Scheduling of VOD Series, Seasons, Episodes & Clips</p>
+            <p>• Scheduling and monitoring live stream events</p>
+            <p>• Quality control of VOD, Live and key art assets on the 9Now platform</p>
+        </div>
+
+
+        <div a-question>presentation coordinator @ telstra broadcast services</div>
+        <div an-answer>
+            <p>• Responsible for the presentation of programs and related material, keeping to playout schedules and
+                timings.</p>
+            <p>• Maintain the output of the clients' network channels via the network automation playlists.</p>
+            <p>• Switching live events such as cycling & NBA matches</p>
+        </div>
+
+
+        <div a-question>live operation coordinator @ stan sports</div>
+        <div an-answer>
+            <p>• Set up live streams ahead of Wimbledon matches and monitor the full broadcast for any faults or
+                technical issues that must be resolved.</p>
+        </div>
+
+        <div an-answer>
+            <p><b>References available on request.</b></p>
+        </div>
+
+    </div>
+    <!--end entire faq panel-->
+
+
+    <!--==============================================-->
+    <!--==============================================-->
+    <!--==============================================-->
+
+
+    <!----- PANEL #3 - MUSIC ----->
+    <div main-content tab-id="music">
+
+        <div heading>favorite music.</div>
+
+        <div paragraph-text>
+            Some text here if you want
+        </div>
+
+        <!-----------------------------------------
+    
+        ⭐⭐⭐⭐⭐⭐⭐⭐⭐
+        
+        HOW TO CHANGE MUSIC:
+        https://linktr.ee/direct_file_links
+        
+        ⭐⭐⭐⭐⭐⭐⭐⭐⭐
+        
+    ------------------------------------------>
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928661022800220190/Monster-Lyrics-PVRIS_e.png">
+        <div song-name>monster</div>
+        <div artist-name>PVRIS</div>
+        <div audio-file="https://cdn.discordapp.com/attachments/740869894345850880/897679343894024192/PVRIS-Monster.mp3"
+            volume="85%"></div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928661022036865095/500x500_e.png">
+        <div song-name>in another life</div>
+        <div artist-name>crown the empire ft. courtney laplante</div>
+        <div audio-file="https://cdn.discordapp.com/attachments/900670626774265886/928589920698794055/In_Another_Life.mp3"
+            volume="80%"></div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928668795864756265/d9fb398bff3a611805b5b57768eaea51_e.png">
+        <div song-name>All Too Well (Taylor's Version)</div>
+        <div artist-name>Taylor Swift</div>
+        <div
+            audio-file="https://cdn.discordapp.com/attachments/900670626774265886/928842142577729606/All_Too_Well_Taylors_Version.mp3">
+        </div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928661022569562183/aimer500x500_e.png">
+        <div song-name>ONE AND LAST</div>
+        <div artist-name>Aimer</div>
+        <div audio-file="https://cdn.discordapp.com/attachments/900670626774265886/928592788898062346/ONE_AND_LAST.mp3">
+        </div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928669566383566888/3421_0_5_e2.png">
+        <div song-name>Angel Baby</div>
+        <div artist-name>Troye Sivan</div>
+        <div audio-file="https://cdn.discordapp.com/attachments/382037367940448256/895356834951606393/Angel_Baby.mp3">
+        </div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/382037367940448256/858552321196556358/tumblr_9c31861dbf8d2168b0efb88fdcbf8114_1c3957e5_512_e.png">
+        <div song-name>Fleeting Words / Outsider</div>
+        <div artist-name>Keiichi Okabe / MONACA</div>
+        <div audio-file="https://cdn.glitch.com/575112cc-11b3-450e-a9e0-7c6c330b016c/Fleeting%20Words%20-%20Outsider.mp3"
+            volume="85%"></div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928662032113365002/82669dbf4b2c3171436b73ca354ce22e_e.png">
+        <div song-name>Crooked Soul (Reimagined)</div>
+        <div artist-name>Dayseeker</div>
+        <div audio-file="https://cdn.discordapp.com/attachments/900670626774265886/928590760713003028/Crooked_Soul_-_Reimagined.mp3"
+            volume="80%"></div>
+
+
+        <img song-image src="https://i.scdn.co/image/ab67616d0000b273a5f7d35901c2357eeb50106a">
+        <div song-name>Relapse</div>
+        <div artist-name>Wage War</div>
+        <div audio-file="https://cdn.discordapp.com/attachments/900670626774265886/928594701563625522/Relapse.mp3"
+            volume="75%"></div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928663009893711882/8e618f601f702902cda56c9c3f386cd2_e.png">
+        <div song-name>Luminescence</div>
+        <div artist-name>Michael FK</div>
+        <div audio-file="https://cdn.discordapp.com/attachments/900670626774265886/928595273574391808/Luminescence.mp3">
+        </div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928663911799070790/e023bf888944064c01c7bf0d297a4f2b_e.png">
+        <div song-name>Ancient Paths</div>
+        <div artist-name>Enzalla</div>
+        <div
+            audio-file="https://cdn.discordapp.com/attachments/900670626774265886/928595883572998144/Ancient_Paths.mp3">
+        </div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928664991668789329/e831df486c7c69871ce172c793d8c95d_e.png">
+        <div song-name>Your Blood</div>
+        <div artist-name>Nothing But Thieves</div>
+        <div audio-file="https://cdn.discordapp.com/attachments/900670626774265886/928843103882870804/Your_Blood.mp3">
+        </div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928665546734579762/74d70dacffb8807f38f13a99b82c2774_e.png">
+        <div song-name>Overdrive</div>
+        <div artist-name>Conan Gray</div>
+        <div audio-file="https://cdn.discordapp.com/attachments/900670626774265886/928843614061228062/Overdrive.mp3"
+            volume="70%"></div>
+
+
+        <img song-image
+            src="https://cdn.discordapp.com/attachments/900692000364445736/928667755765452830/d92364f8dd7a6cd8295f97d8627896bc_e.png">
+        <div song-name>drivers license</div>
+        <div artist-name>olivia rodrigo</div>
+        <div
+            audio-file="https://cdn.discordapp.com/attachments/900670626774265886/928857542224908418/drivers_license.mp3">
+        </div>
+
+    </div>
+    <!--end entire music panel-->
+
+
+    <!--==============================================-->
+    <!--==============================================-->
+    <!--==============================================-->
+
+
+    <!----- PANEL #4 - MEDIA ----->
+    <div main-content tab-id="games">
+
+        <div heading>Favorite games.</div>
+
+        <!----- MEDIA FILTERS ----->
+        <div filter-menu>
+            <div filter-name="faves">all-time faves</div>
+            <div filter-name="perfect">100% cleared</div>
+            <div filter-name="currently">currently playing</div>
+        </div>
+        <!------------------------>
+
+        <div game-item filters="currently">
+            <div game-name>Ghostrunner</div>
+            <img
+                game-image="https://cdn.discordapp.com/attachments/900692000364445736/929751345664249927/Ghostrunner_05-06-20_e3.png">
+            <link game-link="https://ghostrunnergame.com/">
+            <div game-rating>4.5/5</div>
+        </div>
+
+        <div game-item filters="faves perfect">
+            <div game-name>NieR: Automata</div>
+            <img game-image="https://cdn.discordapp.com/attachments/900692000364445736/929665001399132230/dayone_edition_long_tzzz.png"
+                move-left="3px">
+            <link game-link="https://www.platinumgames.com/games/nier-automata">
+            <div game-rating>5/5</div>
+        </div>
+
+    </div>
+    <!--end entire games panel-->
+
+
+    <!--==============================================-->
+    <!--==============================================-->
+    <!--==============================================-->
+
+
+    <!----- PANEL #5 - BUCKETLIST ----->
+    <div main-content tab-id="bucketlist">
+
+        <div heading>My bucketlist.</div>
+
+        <div subheading>short-term plans:</div>
+
+        <div list-item>
+            <i class="ph-square"></i>
+            <span text>embrace cringe</span>
+        </div>
+        <!--don't remove this line-->
+
+        <!--.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-->
+
+        <div subheading>long-term plans:</div>
+
+        <div list-item>
+            <i class="ph-square"></i>
+            <span text>get a PS4 o(TヘTo)</span>
+        </div>
+    </div>
+    <!--don't remove this line-->
+    </div>
+    <!--end entire bucketlist panel-->
+
+
+    <!--==============================================-->
+    <!--==============================================-->
+    <!--==============================================-->
+
+
+    <!----- PANEL #6 - Projects ----->
+    <div main-content tab-id="projects">
+
+        <div heading>projects.</div>
+
+        <div tag-category>
+            <div category-name>completed</div>
+
+            <a href="/tagged/red">personal website</a>
+            <a href="//github.com/kayleecragg/Echo-Chatbot">echo chatbot</a>
+            <a href="//github.com/kayleecragg/ponggame">mini pong game</a>
+            <a href="//github.com/kayleecragg/Magic-8-Ball">magic 8 ball</a>
+        </div>
+        <!--end a tag category-->
+
+        <div tag-category>
+            <div category-name>tbc</div>
+
+            <a href="/tagged/orange">solar system simulation</a>
+        </div>
+        <!--end a tag category-->
+
+    </div>
+    <!--end entire tags panel-->
+
+
+    <!--==============================================-->
+    <!--==============================================-->
+    <!--==============================================-->
+
+
+    <!----- PANEL #8 - BLOGS / FAMILY ----->
+    <div main-content tab-id="blogs">
+
+        <div heading>contact and other links.</div>
+
+        <div paragraph-text>
+            i hang around some other places!
+        </div>
+
+        <div subheading>coding</div>
+
+        <img blog-icon="https://cdn.discordapp.com/attachments/559688106270523412/980511185722023936/unknown.png">
+        <div blog-name>github</div>
+        <div blog-url="https://github.com/kayleecragg"></div>
+        <div blog-subtitle>for all of my grubby little projects</div>
+
+
+        <img blog-icon="https://cdn.discordapp.com/attachments/559688106270523412/980511658214563871/unknown.png">
+        <div blog-name>codepen</div>
+        <div blog-url="https://codepen.io/kayleecragg"></div>
+        <div blog-subtitle>i don't use this at all but.. just in case</div>
+
+
+        <div subheading>socials</div>
+
+
+        <img blog-icon="https://cdn.discordapp.com/attachments/559688106270523412/980515254289170462/linkedin-logo.png">
+        <div blog-name>linkedin</div>
+        <div blog-url="https://linkedin.com/in/kayleecragg"></div>
+        <div blog-subtitle>let's be professional besties!</div>
+
+        <img blog-icon="https://cdn.discordapp.com/attachments/559688106270523412/980513201819115620/unknown.png">
+        <div blog-name>email</div>
+        <div blog-url="mailto:kayleecragg00@gmail.com"></div>
+        <div blog-subtitle>me email</div>
+
+        <div subheading>attachments</div>
+
+
+        <img blog-icon="https://cdn.discordapp.com/attachments/559688106270523412/980515101956255774/file-text.png">
+        <div blog-name>resume</div>
+        <div blog-url="KayleeCraggCV.pdf"></div>
+        <div blog-subtitle>me resume</div>
+
+
+    </div>
+    <!--end entire blogs panel-->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyCYSWQwmpPVyGkqsbB6xZ4f662E0l9_6QM",
+            authDomain: "tobajuice-a268c.firebaseapp.com",
+            projectId: "tobajuice-a268c",
+            storageBucket: "tobajuice-a268c.appspot.com",
+            messagingSenderId: "818479102014",
+            appId: "1:818479102014:web:ce284e33a2bd2a3312f96f",
+            measurementId: "G-4LVW2QNN4Y"
+
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+</body>
+
+</html>
